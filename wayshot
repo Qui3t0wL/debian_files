@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Purpose: Capture/save/display screenshots in wayland
+# Author : Daniel Wayne Armstrong <hello@dwarmstrong.org>
+
+# Requires:
+# * grimshot <https://github.com/swaywm/sway/blob/master/contrib/grimshot>
+# * lximage-qt <https://github.com/lxqt/lximage-qt>
+# * wayland
+
+set -euo pipefail
+
+SCRIPT=$(basename $0)
+TARGET="active"
+SCREENSHOT_DIR="${HOME}/image/screenshot"
+IMAGE="${SCREENSHOT_DIR}/$(date +%FT%H%M%S).png"
+
+Help() {
+    echo "Purpose: Capture/save/display screenshots in wayland"
+    echo "Syntax: $SCRIPT [option]"
+    echo "options:"
+    echo "-h     Print this help"
+    echo "-a     Select area"
+    echo "-o     Current output"
+    echo "-w     Current window"
+    echo ""
+    echo ""
+}
+
+
+run_options() {
+    while getopts ":haow" OPT; do
+        case $OPT in
+            h)  Help
+                exit;;
+            a)  TARGET="area"
+                ;;
+            o)  TARGET="output"
+                ;;
+            w)  TARGET="active"
+                ;;
+            \?) echo "error: Invalid option"
+                exit;;
+        esac
+    done
+}
+
+
+run_options "$@"
+grimshot save $TARGET $IMAGE
+lximage-qt $IMAGE

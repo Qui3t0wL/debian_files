@@ -1,0 +1,8 @@
+#!/bin/sh
+# Purpose: Set environmental variables when starting a wayland session
+# Author : Daniel Wayne Armstrong <hello@dwarmstrong.org>
+
+export MOZ_ENABLE_WAYLAND=1
+
+# start sway
+sway -c ~/.config/sway/config
