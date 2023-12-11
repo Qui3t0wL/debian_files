@@ -1,0 +1,12 @@
+# Desktop notifications
+exec mako
+
+# Network Applet
+exec nm-applet --indicator
+
+# Clipboard
+exec copyq
+
+# Terminals
+exec swaymsg "workspace 1; exec foot"
+exec swaymsg "workspace 2; exec foot"
